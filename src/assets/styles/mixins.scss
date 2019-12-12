@@ -1,0 +1,13 @@
+@mixin border-bottom {
+    position: relative;
+    &::after{
+        position:absolute;
+        content: '';
+        left:0;
+        bottom:0;
+        height:1px;
+        width:100%;
+        background:#ededed;
+        transform:scaleY(0.5)
+    }
+}
