@@ -8,7 +8,8 @@ import Cinema from '../views/Cinema.vue'
 import Center from '../views/Home/HomeCenter.vue'
 import City from '../views/City.vue'
 import Login from '../views/Login.vue'
-
+import NowPlaying from '../views/Home/nowPlaying'
+import ComingSoon from '../views/Home/Comingsoon'
 Vue.use(VueRouter)
 
 const router = new VueRouter({
@@ -23,7 +24,23 @@ const router = new VueRouter({
         },
         {
           path: 'films',
-          component: Films
+          component: Films,
+          children: [
+            {
+              path: 'nowplaying',
+              name: 'nowplaying',
+              component: NowPlaying
+            },
+            {
+              path: 'comingsoon',
+              name: 'comingsoon',
+              component: ComingSoon
+            },
+            {
+              path: '*',
+              component: NowPlaying
+            }
+          ]
         },
         {
           path: 'cinemas',
@@ -31,7 +48,7 @@ const router = new VueRouter({
         },
         {
           path: '*',
-          redirect: 'films'
+          redirect: 'films/nowplaying/'
         }
       ]
     },

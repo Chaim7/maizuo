@@ -1,7 +1,8 @@
 <template>
   <div class = 'home-page'>
   <LvSwiper :slides = 'bannerList'></LvSwiper>
-  <Lvtabs :value="curTabIndex" @abc='curTabIndex=$event' :tabs="['正在上映', '即将上映']"></Lvtabs>
+  <Lvtabs v-model="curTabIndex" :value="curTabIndex" @abc='curTabIndex = $event' :tabs="['正在上映', '即将上映']"></Lvtabs>
+  <router-view></router-view>
 </div>
 </template>
 
@@ -13,7 +14,14 @@ export default {
   data () {
     return {
       bannerList: [],
-      curTabIndex: 1
+      curTabIndex: this.$route.name === 'nowplaying' ? 0 : 1 // 当前选中的下标
+    }
+  },
+  watch: {
+    curTabIndex (newVal) {
+      // 当 curTabIndex 变化时，控制路由跳转
+      let name = newVal === 0 ? 'nowplaying' : 'comingsoon'
+      this.$router.replace({ name })
     }
   },
   components: {
