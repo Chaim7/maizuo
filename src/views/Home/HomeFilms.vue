@@ -1,7 +1,7 @@
 <template>
   <div class = 'home-page'>
   <LvSwiper :slides = 'bannerList'></LvSwiper>
-  <Lvtabs></Lvtabs>
+  <Lvtabs :value="curTabIndex" @abc='curTabIndex=$event' :tabs="['正在上映', '即将上映']"></Lvtabs>
 </div>
 </template>
 
@@ -12,7 +12,8 @@ import Tabs from '../../components/Tabs'
 export default {
   data () {
     return {
-      bannerList: []
+      bannerList: [],
+      curTabIndex: 1
     }
   },
   components: {

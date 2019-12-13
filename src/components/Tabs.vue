@@ -3,9 +3,9 @@
       <li class="lv-tabs__item"
       v-for = '(item,index) in tabs'
       :key='index'
-      :class="{'active': value == index}"
-      @click = 'value = index'>{{item}}</li>
-      <div class="lv-tabs__line">
+      :class="{'active': myValue == index}"
+      @click = 'myValue = index'>{{item}}</li>
+      <div class="lv-tabs__line" :style='lineStyle'>
           <span style='width:56px'></span>
       </div>
   </ul>
@@ -15,7 +15,7 @@
 export default {
   name: 'Lvtabs',
   props: {
-    vslue: {
+    value: {
       type: Number,
       default: 0
     },
@@ -23,14 +23,28 @@ export default {
       type: Array,
       default () {
         return [
-          '正在上映', '即将上映'
+          'a', 'b'
         ]
       }
     }
+
   },
   data () {
     return {
-      value: this.value
+      myValue: this.value
+    }
+  },
+  watch: {
+    myValue (newVal) {
+      // 通知父组件
+      this.$emit('input', newVal)
+    }
+  },
+  computed: {
+    lineStyle () {
+      return {
+        transform: `translateX(${this.myValue * 100}%)`
+      }
     }
   }
 }
